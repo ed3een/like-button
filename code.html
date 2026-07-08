@@ -1,1 +1,68 @@
+<!DOCTYPE html>
+<head>
+  <style>
 
+    		@font-face {
+  font-family: fecha;
+  src: url(https://ed3en.neocities.org/PressStart2P.ttf);
+}
+
+
+    button{
+  font-family:fecha;
+  background:#000000;
+  font-size:8px;
+  color:#26edff;
+  border: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+button:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+  </style>
+</head>
+
+<body>
+  <div class= "post">
+    <button class="like_button">Like <span class="likes">0</span> </button>
+  </div>
+
+  <script>
+    const CLOUDFLARE_WORKER_URL = "https://cacaland luego lo hago";
+    fetch(CLOUDFLARE_WORKER_URL)
+  .then(response => response.json())
+  .then(posts => {
+    });
+
+    const buttons = document.querySelectorAll(".like_button");
+
+
+buttons.forEach(button => {
+
+  button.addEventListener("click", likeButton);
+
+});
+
+
+const likeButton = (event) => {
+
+  const post = event.target.closest(".post");
+
+
+  const likes = post.querySelector(".likes");
+
+
+  let num = parseInt(likes.innerText);
+
+
+  num += 1;
+
+
+  likes.innerText = num;
+
+};
+  </script>
+</body>
