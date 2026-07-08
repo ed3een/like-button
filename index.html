@@ -31,27 +31,56 @@ button:hover {
   </div>
 
 <script>
-    const CLOUDFLARE_URL = "https://tight-cloud-55d1.eddeenn-xne.workers.dev/";
+  const CLOUDFLARE_URL = "https://tight-cloud-55d1.eddeenn-xne.workers.dev/";
+
+
+  fetch(CLOUDFLARE_URL, {
+    method: "GET"
+  })
+  .then(response => response.json())
+  .then(posts => {
+
+    const currentPost = posts.find(p => p.id === 1);
+    if (currentPost) {
+      document.querySelector(".likes").innerText = currentPost.likes;
+    }
+
+  });
+
+
+  
+  const likeButton = (event) => {
+
+    const post = event.target.closest(".post");
+
+    const likes = post.querySelector(".likes");
     
+    let num = parseInt(likes.innerText);
+
+
+    num += 1;
+
+
+    likes.innerText = num;
+
+
     fetch(CLOUDFLARE_URL, {
-      method: "GET"
-    })
-    .then(response => response.json())
-    .then(posts => {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ id: 1, likes: num })
     });
 
-    const buttons = document.querySelectorAll(".like_button");
+  };
 
-    buttons.forEach(button => {
-      button.addEventListener("click", likeButton);
-    });
 
-    const likeButton = (event) => {
-      const post = event.target.closest(".post");
-      const likes = post.querySelector(".likes");
-      let num = parseInt(likes.innerText);
-      num += 1;
-      likes.innerText = num;
-    };
-  </script>
+
+  const buttons = document.querySelectorAll(".like_button");
+  buttons.forEach(button => {
+
+    button.addEventListener("click", likeButton);
+
+  });
+</script>
 </body>
