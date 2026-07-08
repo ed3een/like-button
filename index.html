@@ -30,41 +30,28 @@ button:hover {
     <button class="like_button">Like <span class="likes">0</span> </button>
   </div>
 
-  <script>
-    const CLOUDFLARE_WORKER_URL = "https://tight-cloud-55d1.eddeenn-xne.workers.dev/";
+<script>
+    const CLOUDFLARE_URL = "https://tight-cloud-55d1.eddeenn-xne.workers.dev/";
+    
     fetch(CLOUDFLARE_URL, {
-  method: "GET"
-})
-  .then(response => response.json())
-  .then(posts => {
+      method: "GET"
+    })
+    .then(response => response.json())
+    .then(posts => {
     });
 
     const buttons = document.querySelectorAll(".like_button");
 
+    buttons.forEach(button => {
+      button.addEventListener("click", likeButton);
+    });
 
-buttons.forEach(button => {
-
-  button.addEventListener("click", likeButton);
-
-});
-
-
-const likeButton = (event) => {
-
-  const post = event.target.closest(".post");
-
-
-  const likes = post.querySelector(".likes");
-
-
-  let num = parseInt(likes.innerText);
-
-
-  num += 1;
-
-
-  likes.innerText = num;
-
-};
+    const likeButton = (event) => {
+      const post = event.target.closest(".post");
+      const likes = post.querySelector(".likes");
+      let num = parseInt(likes.innerText);
+      num += 1;
+      likes.innerText = num;
+    };
   </script>
 </body>
