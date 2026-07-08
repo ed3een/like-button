@@ -2,14 +2,9 @@
 <head>
   <style>
 
-    		@font-face {
-  font-family: fecha;
-  src: url(https://ed3en.neocities.org/PressStart2P.ttf);
-}
 
 
     button{
-  font-family:fecha;
   background:#000000;
   font-size:8px;
   color:#26edff;
@@ -34,6 +29,11 @@ button:hover {
   const CLOUDFLARE_URL = "https://tight-cloud-55d1.eddeenn-xne.workers.dev/";
 
 
+  if (localStorage.getItem("liked_post_1")) {
+    document.querySelector(".like_button").disabled = true;
+  }
+
+
   fetch(CLOUDFLARE_URL, {
     method: "GET"
   })
@@ -48,8 +48,14 @@ button:hover {
   });
 
 
+
+
   
   const likeButton = (event) => {
+
+    if (localStorage.getItem("liked_post_1")) {
+      return;
+    }
 
     const post = event.target.closest(".post");
 
@@ -57,12 +63,9 @@ button:hover {
     
     let num = parseInt(likes.innerText);
 
-
     num += 1;
 
-
     likes.innerText = num;
-
 
     fetch(CLOUDFLARE_URL, {
       method: "POST",
@@ -72,10 +75,12 @@ button:hover {
       body: JSON.stringify({ id: 1, likes: num })
     });
 
+    localStorage.setItem("liked_post_1", "true");
+
+    event.target.disabled = true;
+
   };
-
-
-
+  
   const buttons = document.querySelectorAll(".like_button");
   buttons.forEach(button => {
 
