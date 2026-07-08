@@ -32,7 +32,9 @@ button:hover {
 
   <script>
     const CLOUDFLARE_WORKER_URL = "https://tight-cloud-55d1.eddeenn-xne.workers.dev/";
-    fetch(CLOUDFLARE_WORKER_URL)
+    fetch(CLOUDFLARE_URL, {
+  method: "GET"
+})
   .then(response => response.json())
   .then(posts => {
     });
